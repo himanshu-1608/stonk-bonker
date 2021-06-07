@@ -1,0 +1,15 @@
+.stonk-selector-base {
+	width: 50%;
+	text-align: center;
+}
+.stonk-selector-formcontrol {
+	width: 70%;
+}
+@media (max-width: 500px) {
+	.stonk-selector-base {
+		width: 100%;
+	}
+	.stonk-selector-formcontrol {
+		width: 100%;
+	}
+}

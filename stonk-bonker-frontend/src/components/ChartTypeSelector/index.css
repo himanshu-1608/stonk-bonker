@@ -1,0 +1,15 @@
+.chart-selector-base {
+	width: 50%;
+	text-align: center;
+}
+.chart-selector-formcontrol {
+	width: 70%;
+}
+@media (max-width: 500px) {
+	.chart-selector-base {
+		width: 100%;
+	}
+	.chart-selector-formcontrol {
+		width: 100%;
+	}
+}
