@@ -4,7 +4,9 @@ import StonkSelector from "./components/StonkSelector";
 import ChartTypeSelector from "./components/ChartTypeSelector";
 
 function App() {
-	const getChartData = () => {};
+	const getChartData = () => {
+		const links = [];
+	};
 	return (
 		<div className="App">
 			<header>
