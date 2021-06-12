@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -6,27 +6,25 @@ import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
+import { connect } from "react-redux";
+
+import * as actionCreators from "../../actions/index";
 
 import "./index.css";
 
-const ChartTypeSelector = (props) => {
-	const [chartList, setChartList] = useState(["Loading..."]);
-	const [selectedChartList, setSelectedChartList] = useState([]);
-
+const ChartTypeSelector = ({
+	chartList,
+	selectedChartList,
+	updateChartList,
+	changeSelectedChartList,
+}) => {
 	const handleChange = (event) => {
-		setSelectedChartList(event.target.value);
+		changeSelectedChartList(event.target.value);
 	};
 
 	useEffect(() => {
-		setTimeout(() => {
-			setChartList([
-				"Closed Rates",
-				"Opening Rates",
-				"CandleStick Chart",
-				"% return Chart",
-			]);
-		}, 2000);
-	}, []);
+		updateChartList();
+	}, [updateChartList]);
 
 	return (
 		<div className="chart-selector-base">
@@ -50,4 +48,18 @@ const ChartTypeSelector = (props) => {
 	);
 };
 
-export default ChartTypeSelector;
+const mapStateToProps = (state) => {
+	return {
+		chartList: state.chart.chartList,
+		selectedChartList: state.chart.selectedChartList,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateChartList: () => dispatch(actionCreators.updateChartList()),
+		changeSelectedChartList: (value) =>
+			dispatch(actionCreators.changeSelectedChartList(value)),
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ChartTypeSelector);

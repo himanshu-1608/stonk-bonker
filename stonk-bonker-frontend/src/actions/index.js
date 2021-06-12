@@ -1,3 +1,2 @@
-export * from "./stonks";
-export * from "./charts";
-export * from "./general";
+export * from "./stonk";
+export * from "./chart";

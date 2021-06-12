@@ -5,7 +5,7 @@ import ChartTypeSelector from "./components/ChartTypeSelector";
 
 function App() {
 	const getChartData = () => {
-		const links = [];
+		// const links = [];
 	};
 	return (
 		<div className="App">

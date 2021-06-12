@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -6,21 +6,24 @@ import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
+import { connect } from "react-redux";
+
+import * as actionCreators from "../../actions/index";
 
 import "./index.css";
-const StonkSelector = () => {
-	const [stonkList, setStonkList] = useState(["Loading..."]);
-	const [selectedStonkList, setSelectedStonkList] = useState([]);
-
+const StonkSelector = ({
+	stonkList,
+	selectedStonkList,
+	updateStonkList,
+	changeSelectedStonkList,
+}) => {
 	const handleChange = (event) => {
-		setSelectedStonkList(event.target.value);
+		changeSelectedStonkList(event.target.value);
 	};
 
 	useEffect(() => {
-		setTimeout(() => {
-			setStonkList(["Tata Power", "ITC Ltd.", "M&M", "SBI Equity Fund"]);
-		}, 2000);
-	}, []);
+		updateStonkList();
+	}, [updateStonkList]);
 
 	return (
 		<div className="stonk-selector-base">
@@ -43,5 +46,18 @@ const StonkSelector = () => {
 		</div>
 	);
 };
+const mapStateToProps = (state) => {
+	return {
+		stonkList: state.stonk.stonkList,
+		selectedStonkList: state.stonk.selectedStonkList,
+	};
+};
 
-export default StonkSelector;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateStonkList: () => dispatch(actionCreators.updateStonkList()),
+		changeSelectedStonkList: (value) =>
+			dispatch(actionCreators.changeSelectedStonkList(value)),
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(StonkSelector);
